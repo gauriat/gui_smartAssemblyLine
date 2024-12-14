@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "firebase": "^11.0.2",
+    "mongoose": "^8.8.3"
+  }
+}

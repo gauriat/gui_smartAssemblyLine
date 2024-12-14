@@ -1,0 +1,289 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET utf8 ;
+-- -----------------------------------------------------
+-- Schema smartassemblyline
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema smartassemblyline
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS smartassemblyline DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE smartassemblyline ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET sql_safe_updates=0;
+SET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS=1;
+
+-- Creating Customers Table
+CREATE TABLE Customers (
+    Customer_ID INT PRIMARY KEY,
+    Customer_Name VARCHAR(100),
+    Customer_Email VARCHAR(100),
+    Customer_Password VARCHAR(100),
+    LastLoggedIn DATETIME
+);
+
+-- Creating Pattern Table
+CREATE TABLE Pattern (
+    Pattern_ID INT PRIMARY KEY auto_increment,
+    Customer_ID INT,
+    image_path varchar(1000),
+    UpdatedDate DATE,
+    FOREIGN KEY (Customer_ID)
+        REFERENCES Customers (Customer_ID)
+);
+
+-- Creating Order Table
+CREATE TABLE `Order` (
+    Order_ID INT PRIMARY KEY auto_increment,
+    Customer_ID INT,
+    orderDate DATE,
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID)
+);
+
+-- Creating Order Item Table
+CREATE TABLE OrderItem (
+    OrderItem_ID INT PRIMARY KEY auto_increment,
+    Pattern_ID INT,
+    Quantity INT,
+    Order_ID INT,
+    FOREIGN KEY (Pattern_ID) REFERENCES Pattern(Pattern_ID),
+    FOREIGN KEY (Order_ID) REFERENCES `Order`(Order_ID)
+);
+
+-- Creating Operator Table
+CREATE TABLE Operator (
+    Operator_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Op_login VARCHAR(20) NOT NULL UNIQUE,
+    Op_password VARCHAR(20) NOT NULL
+);
+
+-- Creating Production Table
+CREATE TABLE Production (
+    Production_ID INT PRIMARY KEY auto_increment,
+    OrderItem_ID INT,
+    Order_ID INT,
+    Customer_ID INT,
+    Operator_ID INT,
+    Process_ID INT,
+    StartedDate DATE,
+    LastWorked DATE,
+    Rack_RM VARCHAR(20),
+    Rack_FG VARCHAR(20),
+    FOREIGN KEY (OrderItem_ID) REFERENCES OrderItem(OrderItem_ID),
+    FOREIGN KEY (Order_ID) REFERENCES `Order`(Order_ID),
+    FOREIGN KEY (Operator_ID) REFERENCES Operator(Operator_ID),
+    FOREIGN KEY (Process_ID) REFERENCES `Process`(Process_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
+    FOREIGN KEY (Rack_RM) REFERENCES Rack(Rack_ID),
+    FOREIGN KEY (Rack_FG) REFERENCES Rack(Rack_ID)
+);
+
+-- Creating Product Table
+CREATE TABLE Product (
+    Product_ID INT PRIMARY KEY auto_increment,
+    Order_ID INT,
+    OrderItem_ID INT,
+    Customer_ID INT,
+    FOREIGN KEY (Order_ID) REFERENCES `Order`(Order_ID),
+    FOREIGN KEY (OrderItem_ID) REFERENCES OrderItem(OrderItem_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID)
+);
+
+-- Creating Location Table
+CREATE TABLE Location (
+    ASRS_ID INT PRIMARY KEY,
+    locationName VARCHAR(100)
+);
+
+-- Creating Rack Table
+CREATE TABLE Rack (
+    Rack_ID varchar(20) PRIMARY KEY,
+    rowNumber INT,
+    colNumber INT,
+    status enum('filled','empty') NOT NULL default 'empty',
+    ASRS_ID INT,
+    FOREIGN KEY (ASRS_ID) REFERENCES Location(ASRS_ID)
+);
+
+-- Creating Process Table
+CREATE TABLE Process (
+    Process_ID INT PRIMARY KEY,
+    ProcessName VARCHAR(100)
+);
+
+-- Creating Operation Table
+CREATE TABLE Operation (
+    Operation_ID INT PRIMARY KEY auto_increment,
+    OperationName VARCHAR(100),
+    Machine_ID INT,
+    Process_ID INT,
+    Date DATE,
+    FOREIGN KEY (Machine_ID) REFERENCES Machine(Machine_ID),
+    FOREIGN KEY (Process_ID) REFERENCES `Process`(Process_ID)
+);
+
+-- Creating Machine Table
+CREATE TABLE Machine (
+    Machine_ID INT PRIMARY KEY,
+    Machine_Name VARCHAR(30),
+    Status enum('Running','Idle'),
+    StartTime TIME,
+    EndTime TIME
+);
+
+-- Creating Dispatch Table
+CREATE TABLE Dispatch (
+    Dispatch_ID INT PRIMARY KEY auto_increment,
+    Product_ID INT,
+    Date DATE,
+    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
+);
+
+#drop table location;
+#drop table machine;
+#drop table operation;
+#drop table operator;
+#drop table `order`;
+#drop table orderitem;
+#drop table pattern;
+#drop table process;
+#drop table product;
+#drop table production;
+#drop table rack;
+#drop table dispatch;
+
+insert into Customers values (1, 'gauri', 'gaurithambkar@gmail.com', 3105, sysdate());
+select * from Customers;
+select * from pattern;
+select * from machine;
+delete from production;
+select * from orderitem;
+select * from operator;
+select * from operation;
+select * from `order`;
+select * from production;
+select * from Rack;
+insert into operator values(1, 'operator1', '123');
+insert into location values(1, 'RawMaterial'), (2,'FinishedGoods');
+insert into Rack values ('RM_24',0,0,'empty',1),('RM_22',0,1,'empty',1),
+('RM_19',0,2,'empty',1),('RM_15',0,3,'empty',1),('RM_23',1,0,'empty',1),
+('RM_20',1,1,'empty',1),('RM_16',1,2,'empty',1),('RM_11',1,3,'empty',1),
+('RM_21',2,0,'empty',1),('RM_17',2,1,'empty',1),('RM_12',2,2,'empty',1),
+('RM_07',2,3,'empty',1),('RM_18',3,0,'empty',1),('RM_13',3,1,'empty',1),
+('RM_08',3,2,'empty',1),('RM_05',3,3,'empty',1),('RM_14',4,0,'empty',1),
+('RM_09',4,1,'empty',1),('RM_04',4,2,'empty',1),('RM_02',4,3,'empty',1),
+('RM_10',5,0,'empty',1),('RM_06',5,1,'empty',1),('RM_03',5,2,'empty',1),
+('RM_01',5,3,'empty',1);
+insert into Rack values ('FG_24',0,0,'empty',2),('FG_22',0,1,'empty',2),
+('FG_19',0,2,'empty',2),('FG_15',0,3,'empty',2),('FG_23',1,0,'empty',2),
+('FG_20',1,1,'empty',2),('FG_16',1,2,'empty',2),('FG_11',1,3,'empty',2),
+('FG_21',2,0,'empty',2),('FG_17',2,1,'empty',2),('FG_12',2,2,'empty',2),
+('FG_07',2,3,'empty',2),('FG_18',3,0,'empty',2),('FG_13',3,1,'empty',2),
+('FG_08',3,2,'empty',2),('FG_05',3,3,'empty',2),('FG_14',4,0,'empty',2),
+('FG_09',4,1,'empty',2),('FG_04',4,2,'empty',2),('FG_02',4,3,'empty',2),
+('FG_10',5,0,'empty',2),('FG_06',5,1,'empty',2),('FG_03',5,2,'empty',2),
+('FG_01',5,3,'empty',2);
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_01';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_02';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_03';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_04';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_05';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_06';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_07';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_08';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_09';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_10';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_11';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_12';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_13';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_14';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_15';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_16';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_17';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_18';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_19';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_20';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_21';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_22';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_23';
+UPDATE Rack SET status = 'filled' WHERE Rack_ID='RM_24';
+INSERT INTO Process VALUES(1,'dispatch');
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_01';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_02';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_03';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_04';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_05';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_06';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_07';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_08';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_09';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_10';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_11';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_12';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_13';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_14';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_15';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_16';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_17';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_18';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_19';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_20';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_21';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_22';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_23';
+UPDATE Rack SET status = 'empty' WHERE Rack_ID='FG_24';
+INSERT INTO Machine VALUES(1,'ASRS_RM','Idle','00:00:00','00:00:00'),
+(2,'SCARA','Idle','00:00:00','00:00:00'),
+(3,'COBOT','Idle','00:00:00','00:00:00'),
+(4,'Camera_System','Idle','00:00:00','00:00:00'),
+(5,'Viper','Idle','00:00:00','00:00:00'),
+(6,'ASRS_FG','Idle','00:00:00','00:00:00');
+INSERT INTO Operation VALUES(1,'Picking raw material',1,1,CURRENT_DATE),
+(2,'Picking pallet and places on conveyor',2,1,CURRENT_DATE),
+(3,'Picking and placing the pattern according to user input',3,1,CURRENT_DATE),
+(4,'Cross verifying the pattern with user input',4,1,CURRENT_DATE),
+(5,'Picking the pallet if the pattern matches with user input',5,1,CURRENT_DATE),
+(6,'Picking the final pattern and placing it on rack',6,1,CURRENT_DATE);
+ALTER TABLE `Order` ADD `status`  enum('new','production','dispatched') NOT NULL;
+SELECT 
+    p.Production_ID,
+    p.OrderItem_ID,
+    p.Order_ID,
+    p.Customer_ID,
+    p.Operator_ID,
+    p.Process_ID,
+    p.StartedDate,
+    p.LastWorked,
+    p.Rack_RM,
+    p.Rack_FG,
+    pr.ProcessName,
+    op.OperationName,
+    m.Machine_ID,
+    m.Machine_Name,
+    m.Status AS Machine_Status,
+    m.StartTime AS Machine_StartTime,
+    m.EndTime AS Machine_EndTime
+FROM 
+    Production p
+LEFT JOIN Process pr ON p.Process_ID = pr.Process_ID
+LEFT JOIN Operation op ON pr.Process_ID = op.Process_ID
+LEFT JOIN Machine m ON op.Machine_ID = m.Machine_ID
+WHERE 
+    m.Machine_ID = 2;
+    
