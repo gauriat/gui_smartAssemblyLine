@@ -27,6 +27,8 @@ const dbConfig = {
     database: process.env.DB_NAME, // Get database name from environment variables
     connectionLimit: 1000
 };
+// Create a pool for database connections
+const pool = mysql.createPool(dbConfig);
 
 // Example of MySQL connection
 async function connectToDatabase() {
