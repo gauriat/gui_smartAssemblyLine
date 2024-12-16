@@ -1,5 +1,5 @@
 const express = require('express');
-//const mysql = require('mysql2/promise'); // Use mysql2 with promises
+const mysql = require('mysql2/promise'); // Use mysql2 with promises
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
@@ -15,13 +15,14 @@ app.use((req,res,next) => {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection setup with pooling
-const mysql = require('mysql');
-const dbConfig = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
+const dbConfig = {
+    host: process.env.DB_HOST || 'localhost', // Use environment variable or default to localhost
+    port: 3306,
+    user: 'root',
+    password: 'Gui@2024',
+    database: process.env.DB_NAME || 'smartassemblyline', // Use environment variable or default to smartassemblyline
+    connectionLimit: 1000
+};
 dbConfig.connect(err => {
   if (err) {
     console.error('Database connection error: ' + err.stack);
