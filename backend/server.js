@@ -16,7 +16,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection setup with pooling
 const dbConfig = {
-    host: process.env.DB_HOST || 'localhost', // Use environment variable or default to localhost
+    host: '127.0.0.1', // Use environment variable or default to localhost
     port: 3306,
     user: 'root',
     password: 'Gui@2024',
