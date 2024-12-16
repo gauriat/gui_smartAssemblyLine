@@ -33,8 +33,9 @@ const pool = mysql.createPool(dbConfig);
 // Example of MySQL connection
 async function connectToDatabase() {
     try {
-        const connection = await mysql.createPool(dbConfig);
+        const connection = await pool.getConnection();
         console.log('Database connected successfully');
+        connection.release();  // Don't forget to release the connection
     } catch (error) {
         console.error('Database connection failed:', error.message);
     }
