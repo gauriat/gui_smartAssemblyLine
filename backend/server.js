@@ -16,13 +16,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection setup with pooling
 const dbConfig = {
-    host: 'localhost' || '127.0.0.1',
+    host: process.env.DB_HOST || 'localhost', // Use environment variable or default to localhost
     port: 3306,
     user: 'root',
     password: 'Gui@2024',
-    database: 'smartassemblyline' || 'test',
-    connectionLimit:1000
+    database: process.env.DB_NAME || 'smartassemblyline', // Use environment variable or default to smartassemblyline
+    connectionLimit: 1000
 };
+
 
 // Create a pool to manage multiple connections
 const pool = mysql.createPool(dbConfig);
