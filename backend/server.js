@@ -1,7 +1,7 @@
 require('dotenv').config();  // Load environment variables from .env file
 
 const express = require('express');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
