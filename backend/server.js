@@ -1,7 +1,3 @@
-process.on('uncaughtException', function (err) {
-    console.log(err);
-});
-
 const express = require('express');
 const mysql = require('mysql2/promise'); // Use mysql2 with promises
 const multer = require('multer');
