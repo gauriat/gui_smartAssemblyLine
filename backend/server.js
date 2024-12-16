@@ -31,15 +31,20 @@ const dbConfig = {
 const pool = mysql.createPool(dbConfig);
 
 // Example of MySQL connection
+// Use .promise() to ensure the use of promises for MySQL2 connection pool
 async function connectToDatabase() {
     try {
-        const connection = await pool.promise().getConnection();  // Use .promise() to handle promises
+        const connection = await pool.promise().getConnection();  // Ensure promise-based connection
         console.log('Database connected successfully');
-        connection.release();  // Release the connection after using it
+        
+        // Use connection to interact with the DB...
+        
+        connection.release();  // Use release correctly after using the connection
     } catch (error) {
         console.error('Database connection failed:', error.message);
     }
 }
+
 
 
 connectToDatabase();
@@ -47,23 +52,43 @@ connectToDatabase();
 // Middleware for handling database connection errors
 app.use(async (req, res, next) => {
     try {
-        req.db = await pool.getConnection();
+        req.db = await pool.promise().getConnection();  // Correctly obtain connection using promise()
         next();
     } catch (error) {
-        console.error('Database connection error:', error);
+        console.error('Database connection error:', error.message);
         res.status(500).json({ success: false, message: 'Database connection failed' });
     }
 });
 
+
 // File storage setup for multer
-const storage = multer.diskStorage({
+/*const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
     }
-});
+});*/
+
+// File storage setup for multer
+/*const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // Ensure that uploads directory exists, if not, create it
+        const uploadDir = path.join(__dirname, 'uploads');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir);
+        }
+        cb(null, uploadDir);  // Pass the path where files should be stored
+    },
+    filename: (req, file, cb) => {
+        // Give a unique name based on the timestamp and file extension
+        cb(null, Date.now() + path.extname(file.originalname));  // Passing the file name
+    }
+});*/
+
+const upload = multer({ storage: storage });
+
 
 const upload = multer({ storage: storage });
 
