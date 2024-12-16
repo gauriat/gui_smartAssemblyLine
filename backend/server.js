@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2/promise'); // Use mysql2 with promises
+//const mysql = require('mysql2/promise'); // Use mysql2 with promises
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
