@@ -1,5 +1,7 @@
+require('dotenv').config();  // Load environment variables from .env file
+
 const express = require('express');
-const mysql = require('mysql2/promise'); // Use mysql2 with promises
+const mysql = require('mysql2/promise');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
@@ -8,25 +10,35 @@ const fs = require('fs');
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use((req,res,next) => {
+
+app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
     next();
-})
+});
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Database connection setup with pooling
+// Database connection setup with pooling using environment variables
 const dbConfig = {
-    host: '127.0.0.1', // Use environment variable or default to localhost
-    port: 3306,
-    user: 'root',
-    password: 'Gui@2024',
-    database: 'smartassemblyline', // Use environment variable or default to smartassemblyline
+    host: process.env.DB_HOST, // Get host from environment variables
+    port: 3306,  // You can still hardcode the port here if needed
+    user: process.env.DB_USER, // Get user from environment variables
+    password: process.env.DB_PASSWORD, // Get password from environment variables
+    database: process.env.DB_NAME, // Get database name from environment variables
     connectionLimit: 1000
 };
 
+// Example of MySQL connection
+async function connectToDatabase() {
+    try {
+        const connection = await mysql.createPool(dbConfig);
+        console.log('Database connected successfully');
+    } catch (error) {
+        console.error('Database connection failed:', error.message);
+    }
+}
 
-// Create a pool to manage multiple connections
-const pool = mysql.createPool(dbConfig);
+connectToDatabase();
 
 // Middleware for handling database connection errors
 app.use(async (req, res, next) => {
@@ -700,6 +712,7 @@ app.post('/dispatchProduct', async (req, res) => {
 });
 
 // Start the server
-app.listen(8081, () => {
-    console.log('Server is running on http://localhost:8081');
+const port = process.env.PORT || 8081;  // Use PORT from environment variable or default to 8081
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
