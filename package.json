@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dotenv": "^16.4.7",
     "firebase": "^11.0.2",
     "mongoose": "^8.8.3"
   }
