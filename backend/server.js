@@ -89,9 +89,6 @@ app.use(async (req, res, next) => {
 
 const upload = multer({ storage: storage });
 
-
-const upload = multer({ storage: storage });
-
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
