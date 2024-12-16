@@ -87,7 +87,7 @@ app.use(async (req, res, next) => {
     }
 });*/
 
-const upload = multer({ storage: storage });
+//const upload = multer({ storage: storage });
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -111,7 +111,7 @@ app.post('/login', async (req, res) => {
 });
 
 // Add pattern route
-app.post('/addPattern', upload.single('image'), async (req, res) => {
+/*app.post('/addPattern', upload.single('image'), async (req, res) => {
     const userId = req.body.userId;
     const image = req.file;
 
@@ -136,7 +136,7 @@ app.post('/addPattern', upload.single('image'), async (req, res) => {
         console.error('Error inserting pattern:', error);
         res.status(500).json({ success: false });
     }
-});
+});*/
 
 // View patterns route
 app.get('/viewPatterns', async (req, res) => {
