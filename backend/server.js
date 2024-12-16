@@ -20,7 +20,7 @@ const dbConfig = {
     port: 3306,
     user: 'root',
     password: 'Gui@2024',
-    database: process.env.DB_NAME || 'smartassemblyline', // Use environment variable or default to smartassemblyline
+    database: 'smartassemblyline', // Use environment variable or default to smartassemblyline
     connectionLimit: 1000
 };
 
