@@ -30,35 +30,36 @@ const dbConfig = {
 // Create a pool for database connections
 const pool = mysql.createPool(dbConfig);
 
-// Example of MySQL connection
-// Use .promise() to ensure the use of promises for MySQL2 connection pool
+
+/*
+
+
+
 async function connectToDatabase() {
     try {
-        const connection = await pool.promise().getConnection();  // Ensure promise-based connection
+        const connection = await pool.promise().getConnection(); 
         console.log('Database connected successfully');
-        
-        // Use connection to interact with the DB...
+        .
         
         connection.release();  // Use release correctly after using the connection
     } catch (error) {
         console.error('Database connection failed:', error.message);
     }
-}
+}*/
 
 
 
-connectToDatabase();
+//connectToDatabase();
 
-// Middleware for handling database connection errors
-app.use(async (req, res, next) => {
+/*app.use(async (req, res, next) => {
     try {
-        req.db = await pool.promise().getConnection();  // Correctly obtain connection using promise()
+        req.db = await pool.promise().getConnection();  
         next();
     } catch (error) {
         console.error('Database connection error:', error.message);
         res.status(500).json({ success: false, message: 'Database connection failed' });
     }
-});
+});*/
 
 
 // File storage setup for multer
@@ -88,6 +89,29 @@ app.use(async (req, res, next) => {
 });*/
 
 //const upload = multer({ storage: storage });
+
+async function connectToDatabase() {
+    try {
+        const connection = await mysql.createConnection(dbConfig);  // Direct connection instead of pooling
+        console.log('Database connected successfully');
+        connection.end();  // Close the connection after use
+    } catch (error) {
+        console.error('Database connection failed:', error.message);
+    }
+}
+
+connectToDatabase();
+app.use(async (req, res, next) => {
+    try {
+        req.db = await pool.getConnection();  // Try to get a connection from the pool
+        console.log('Connected to the database');
+        next();
+    } catch (error) {
+        console.error('Database connection error:', error.message);  // Log the full error message
+        res.status(500).json({ success: false, message: 'Database connection failed', error: error.message });
+    }
+});
+
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
