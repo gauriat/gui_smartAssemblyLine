@@ -15,14 +15,13 @@ app.use((req,res,next) => {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection setup with pooling
-const dbConfig = {
-    host: process.env.DB_HOST || 'localhost', // Use environment variable or default to localhost
-    port: 3306,
-    user: 'root',
-    password: 'Gui@2024',
-    database: process.env.DB_NAME || 'smartassemblyline', // Use environment variable or default to smartassemblyline
-    connectionLimit: 1000
-};
+const mysql = require('mysql');
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
 connection.connect(err => {
   if (err) {
     console.error('Database connection error: ' + err.stack);
