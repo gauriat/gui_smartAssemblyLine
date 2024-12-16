@@ -23,7 +23,13 @@ const dbConfig = {
     database: process.env.DB_NAME || 'smartassemblyline', // Use environment variable or default to smartassemblyline
     connectionLimit: 1000
 };
-
+connection.connect(err => {
+  if (err) {
+    console.error('Database connection error: ' + err.stack);
+    return;
+  }
+  console.log('Connected to database.');
+});
 
 // Create a pool to manage multiple connections
 const pool = mysql.createPool(dbConfig);
