@@ -16,10 +16,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection setup with pooling
 const dbConfig = {
-    host: 'localhost',
+    host: 'localhost' || '127.0.0.1'',
+    port: 3306,
     user: 'root',
     password: 'Gui@2024',
-    database: 'smartassemblyline',
+    database: 'smartassemblyline' || 'test',
     connectionLimit:1000
 };
 
