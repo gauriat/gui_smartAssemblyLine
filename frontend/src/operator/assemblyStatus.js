@@ -1,8 +1,8 @@
 import React, { useEffect,useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 import machineImage from './SMART MANUFACTURING LAB.JPG';
 
 const MachineStatusMap = () => {
@@ -17,7 +17,7 @@ const MachineStatusMap = () => {
     // Start production
     const startProduction = async () => {
         try {
-            const response = await axios.post('http://localhost:8081/resumeProd',{ productionId });
+            const response = await axios.post('https://gui-smartassemblyline-1.onrender.com/resumeProd',{ productionId });
             alert(response.data.message || 'Production started successfully!');
         } catch (error) {
             console.error('Error starting production:', error);
@@ -28,7 +28,7 @@ const MachineStatusMap = () => {
     // Stop production
     const stopProduction = async () => {
         try {
-            const response = await axios.post('http://localhost:8081/stopProduction',{
+            const response = await axios.post('https://gui-smartassemblyline-1.onrender.com/stopProduction',{
                 productionId: productionId,
             });
             alert(response.data.message || 'Production stopped successfully!');
