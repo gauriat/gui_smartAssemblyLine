@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
-import 'D:/gui/Code/frontend/src/App.css';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
+import arrow from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/customer/1.jpg';
+import c from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/customer/2.jpg'
+import 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/App.css';
 
 function Cart({ onLogout }) {
     const [patterns, setPatterns] = useState([]);
@@ -16,7 +18,7 @@ function Cart({ onLogout }) {
     useEffect(() => {
         const fetchPatterns = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/viewPatterns', {
+                const response = await axios.get('https://gui-smartassemblyline-1.onrender.com/viewPatterns', {
                     params: { userId }
                 });
 
@@ -74,7 +76,7 @@ function Cart({ onLogout }) {
         }
 
         try {
-            const response = await axios.post('http://localhost:8081/placeOrder', {
+            const response = await axios.post('https://gui-smartassemblyline-1.onrender.com/placeOrder', {
                 userId,
                 cartItems
             });
@@ -111,10 +113,56 @@ function Cart({ onLogout }) {
             <main>
                 <section className="pattern-section">
                     <ul className="pattern-list">
+                        <li key={1}>
+                            <img
+                                src={arrow}
+                                alt={`Pattern ${1}`}
+                            />
+                            <div>
+                                <button
+                                    onClick={() => updateQuantity(1, quantities[1] - 1)}
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="number"
+                                    value={quantities[1]}
+                                    readOnly
+                                />
+                                <button
+                                    onClick={() => updateQuantity(1, quantities[1] + 1)}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </li>
+                        <li key={2}>
+                            <img
+                                src={c}
+                                alt={`Pattern ${2}`}
+                            />
+                            <div>
+                                <button
+                                    onClick={() => updateQuantity(2, quantities[2] - 1)}
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="number"
+                                    value={quantities[2]}
+                                    readOnly
+                                />
+                                <button
+                                    onClick={() => updateQuantity(2, quantities[2] + 1)}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </li>
                         {patterns.map(pattern => (
                             <li key={pattern.Pattern_ID}>
                                 <img
-                                    src={`http://localhost:8081/uploads/${pattern.image_path.split('uploads\\')[1]}`}
+                                    src={`https://gui-smartassemblyline.onrender.com/uploads/${pattern.image_path.split('uploads\\')[1]}`}
                                     alt={`Pattern ${pattern.Pattern_ID}`}
                                 />
                                 <div>
