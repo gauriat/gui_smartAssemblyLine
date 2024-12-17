@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './operator.css';
-import asrs from 'D:/gui/Code/frontend/src/operator/Cobot.jpg';
+import asrs from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/operator/Cobot.jpg';
 import { Link } from 'react-router-dom';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 
 
 function StatusASRS() {
@@ -15,7 +15,7 @@ function StatusASRS() {
     useEffect(() => {
         const fetchProductionDetails = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/productionDetails', {
+                const response = await axios.get('https://gui-smartassemblyline-1.onrender.com/productionDetails', {
                     params: { machineId: 3, productionId},
                 });
                 console.log('API Response:', response.data);
