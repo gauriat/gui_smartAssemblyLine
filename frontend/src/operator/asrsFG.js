@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './operator.css';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 
 function AsrsFG() {
     const matrixTemplate = [
@@ -21,7 +21,7 @@ function AsrsFG() {
     useEffect(() => {
         const fetchRackStatus = async () => {
             try {
-                const response = await fetch('http://localhost:8081/getRackStatusFG');
+                const response = await fetch('https://gui-smartassemblyline-1.onrender.com/getRackStatusFG');
                 const result = await response.json();
     
                 if (result.success) {
