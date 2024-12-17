@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './operator.css';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 
 function ProductionHistory({ onLogout }) {
     const [productionHistory, setProductionHistory] = useState([]);
@@ -11,7 +11,7 @@ function ProductionHistory({ onLogout }) {
     useEffect(() => {
         const fetchProductionHistory = async () => {
             try {
-                const response = await fetch('http://localhost:8081/allProductionDetails');
+                const response = await fetch('https://gui-smartassemblyline-1.onrender.com/allProductionDetails');
                 const result = await response.json();
 
                 if (result.success) {
@@ -31,7 +31,7 @@ function ProductionHistory({ onLogout }) {
 
     const handleDispatch = async (production) => {
         try {
-            const response = await fetch('http://localhost:8081/dispatchProduct', {
+            const response = await fetch('https://gui-smartassemblyline-1.onrender.com/dispatchProduct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
