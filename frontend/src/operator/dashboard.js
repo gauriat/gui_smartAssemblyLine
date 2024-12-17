@@ -15,8 +15,8 @@ import {
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './operator.css';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 
 ChartJS.register(
     BarElement,
@@ -39,15 +39,15 @@ function HomePage({ onLogout }) {
     useEffect(() => {
         const fetchOrderCount = async () => {
             try {
-                const totalResponse = await axios.get('http://localhost:8081/totalOrdersCount');
+                const totalResponse = await axios.get('https://gui-smartassemblyline-1.onrender.com/totalOrdersCount');
                 if (totalResponse.data.success) {
                     setOrderCount(totalResponse.data.totalOrders);
                 }
-                const pendingResponse = await axios.get('http://localhost:8081/pendingOrdersCount');
+                const pendingResponse = await axios.get('https://gui-smartassemblyline-1.onrender.com/pendingOrdersCount');
                 if (pendingResponse.data.success) {
                     setPendingOrders(pendingResponse.data.pendingOrders);
                 }
-                const dispatchedResponse = await axios.get('http://localhost:8081/dispatchedOrdersCount');
+                const dispatchedResponse = await axios.get('https://gui-smartassemblyline-1.onrender.com/dispatchedOrdersCount');
                 if (dispatchedResponse.data.success) {
                     setDispatchedOrders(dispatchedResponse.data.dispatchedOrders);
                 }
@@ -58,7 +58,7 @@ function HomePage({ onLogout }) {
 
         const fetchOrdersPerDay = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/ordersPerDay');
+                const response = await axios.get('https://gui-smartassemblyline-1.onrender.com/ordersPerDay');
                 if (response.data.success) {
                     setOrdersPerDay(response.data.ordersPerDay);
                 } else {
@@ -71,7 +71,7 @@ function HomePage({ onLogout }) {
 
         const fetchOrdersByCustomer = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/ordersByCustomer');
+                const response = await axios.get('https://gui-smartassemblyline-1.onrender.com/ordersByCustomer');
                 if (response.data.success) {
                     setOrdersByCustomer(response.data.ordersByCustomer);
                 } else {
