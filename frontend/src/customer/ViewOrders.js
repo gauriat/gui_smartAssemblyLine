@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
-import 'D:/gui/Code/frontend/src/App.css';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
+import 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/App.css';
 
 const ViewOrders = () => {
     const [groupedOrders, setGroupedOrders] = useState([]);
@@ -12,7 +12,7 @@ const ViewOrders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/viewOrders', {
+                const response = await axios.get('https://gui-smartassemblyline-1.onrender.com/viewOrders', {
                     params: { userId },
                 });
 
@@ -61,7 +61,7 @@ const ViewOrders = () => {
                                         return (
                                             <div className="order-item" key={order.OrderItem_ID}>
                                                 <img
-                                                    src={`http://localhost:8081/uploads/${order.image_path.split('uploads\\')[1]}`}
+                                                    src={`https://gui-smartassemblyline.onrender.com/uploads/${order.image_path.split('uploads\\')[1]}`}
                                                     alt={`Pattern ${order.Pattern_ID}`}
                                                     className="order-image"
                                                 />
