@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
-import 'D:/gui/Code/frontend/src/App.css';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
+import 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/App.css';
 
 function AddPattern({ onLogout }) {
     const [imageFile, setImageFile] = useState(null); // To store the actual file
@@ -29,7 +29,7 @@ function AddPattern({ onLogout }) {
         formData.append('image', imageFile);
 
         try {
-            const response = await axios.post('http://localhost:8081/addPattern', formData, {
+            const response = await axios.post('https://gui-smartassemblyline-1.onrender.com/addPattern', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
