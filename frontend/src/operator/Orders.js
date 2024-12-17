@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 import './operator.css';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ const Orders = ({ onLogout }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/orders');
+                const response = await axios.get('https://gui-smartassemblyline-1.onrender.com/orders');
                 const fetchedOrders = response.data.orders;
                 setOrders(fetchedOrders);
             } catch (err) {
@@ -28,7 +28,7 @@ const Orders = ({ onLogout }) => {
 
     const handleStartProduction = async (orderId) => {
         try {
-            const response1=await axios.post('http://localhost:8081/startProduction', { orderId, operatorId });
+            const response1=await axios.post('https://gui-smartassemblyline-1.onrender.com/startProduction', { orderId, operatorId });
             alert('Production started successfully!');
             const {productionId}=response1.data;
             sessionStorage.setItem('productionID',productionId);
@@ -59,7 +59,7 @@ const Orders = ({ onLogout }) => {
                         return (
                             <li key={order.OrderItem_ID}>
                                 <img
-                                    src={`http://localhost:8081/uploads/${order.image_path.split('uploads\\')[1]}`}
+                                    src={`https://gui-smartassemblyline.onrender.com/uploads/${order.image_path.split('uploads\\')[1]}`}
                                     alt={`Pattern ${order.Pattern_ID}`}
                                     width="100"
                                     height="120"
