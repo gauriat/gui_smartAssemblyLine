@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './operator.css';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
-import logo1 from 'D:/gui/Code/frontend/src/logo1.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
+import logo1 from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo1.png';
 
 
 function AsrsEdit() {
@@ -23,7 +23,7 @@ function AsrsEdit() {
     useEffect(() => {
         const fetchRackStatus = async () => {
             try {
-                const response = await fetch('http://localhost:8081/getRackStatus');
+                const response = await fetch('https://gui-smartassemblyline-1.onrender.com/getRackStatus');
                 const result = await response.json();
 
                 if (result.success) {
@@ -57,7 +57,7 @@ function AsrsEdit() {
         try {
             const rackID = matrixTemplate[row ][col ];
             console.log(rackID);
-            const response = await fetch('http://localhost:8081/updateRackStatus', {
+            const response = await fetch('https://gui-smartassemblyline-1.onrender.com/updateRackStatus', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ rackID, status }),
@@ -70,7 +70,7 @@ function AsrsEdit() {
                 // Re-fetch rack statuses after successful update
                 const fetchUpdatedRackStatus = async () => {
                     try {
-                        const updatedResponse = await fetch('http://localhost:8081/getRackStatus');
+                        const updatedResponse = await fetch('https://gui-smartassemblyline-1.onrender.com/getRackStatus');
                         const updatedResult = await updatedResponse.json();
     
                         if (updatedResult.success) {
