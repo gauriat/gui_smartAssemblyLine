@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logo from 'D:/gui/Code/frontend/src/logo.png';
+import logo from 'C:/Users/gauri/OneDrive/Documents/IRP1/gui_smartAssemblyLine/frontend/src/logo.png';
 import loginImage from './6670985.jpg';
 
 function Login({ onLogin }) {
@@ -26,7 +26,7 @@ function Login({ onLogin }) {
         setError(''); // Clear previous error
 
         try {
-            const response = await axios.post('http://localhost:8081/login', {
+            const response = await axios.post('https://gui-smartassemblyline-1.onrender.com/login', {
                 username: values.username,
                 password: values.password
             });
