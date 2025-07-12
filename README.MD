@@ -95,13 +95,15 @@ This ensures a **modular, scalable design** capable of adapting to future expans
 
 ## 📸 Screenshots
 
-###Customer UI
+### Customer UI
 
 ![Landing Page](assests/landingPage.png)
+
 ![Add Pattern](assets/addPattern.png)
+
 ![Pattern Status](assets/patternStatus.png)
 
-###Opertor UI
+### Opertor UI
 ![Dashboard](assets/operatorDashboard.png)
 ![New Order to push for production](assets/operatorNewOrder.png)
 ![Operator Status](assets/operatorStatus.png)
