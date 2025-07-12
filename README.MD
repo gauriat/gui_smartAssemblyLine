@@ -99,19 +99,27 @@ This ensures a **modular, scalable design** capable of adapting to future expans
 
 ![Landing Page](assests/landingPage.png)
 
-![Add Pattern](assets/addPattern.png)
+![Add Pattern](assests/addPattern.png)
 
-![Pattern Status](assets/patternStatus.png)
+![Pattern Status](assests/patternStatus.png)
 
 ### Opertor UI
-![Dashboard](assets/operatorDashboard.png)
-![New Order to push for production](assets/operatorNewOrder.png)
-![Operator Status](assets/operatorStatus.png)
-![ASRS status](assets/ASRSstatus.png)
-![ASRS Rack Status](assets/ASRSrackstatus.png)
-![ASRS Rack Edit](assets/ASRSrackedit.png)
-![Cobot Status](assets/CobotStatus.png)
-![Production History](assets/productionHistory.png)
+
+![Dashboard](assests/operatorDashboard.png)
+
+![New Order to push for production](assests/operatorNewOrder.png)
+
+![Operator Status](assests/operatorStatus.png)
+
+![ASRS status](assests/ASRSstatus.png)
+
+![ASRS Rack Status](assests/ASRSrackstatus.png)
+
+![ASRS Rack Edit](assests/ASRSrackedit.png)
+
+![Cobot Status](assests/CobotStatus.png)
+
+![Production History](assests/productionHistory.png)
 
 ---
 
