@@ -91,18 +91,11 @@ This ensures a **modular, scalable design** capable of adapting to future expans
 
 ---
 
-## 🤝 Acknowledgements
 
-Special thanks to:  
-- Dr. Sachin Karadgi & Mr. Shridhar Dodamani (Guides)  
-- Center for Automation and Robotics Research (CARR), KLE Technological University  
-- Our families, mentors & peers
-
----
 
 ## 📸 Screenshots
 
-> ✍️ _Add UI screenshots here, e.g.: Login Page, Customer Dashboard, Operator Panel, Production History, etc._
+> 
 
 ---
 
