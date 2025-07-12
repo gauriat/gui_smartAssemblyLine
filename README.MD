@@ -65,9 +65,12 @@ Built around the concepts of Industry 4.0, it integrates:
 
 ### Customer Schema
 - Customers, Patterns, Orders, Order Items
+![Customer Schema](assests/userSchema.png)
+
 
 ### Operator Schema
 - Operators, Production, Machines, Racks, Locations, Processes, Dispatch
+![Operator Schema](assests/operatorSchema.png)
 
 This ensures a **modular, scalable design** capable of adapting to future expansions (e.g., predictive maintenance, AR interfaces).
 
